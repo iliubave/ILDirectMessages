@@ -1,0 +1,414 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CA2E6C5E1EF75398001DBCC5 /* ILDirectMessagesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2E6C5D1EF75398001DBCC5 /* ILDirectMessagesCollectionView.swift */; };
+		CA59A1361F09DDE00089A2B2 /* ILDirectMessagesTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA59A1351F09DDE00089A2B2 /* ILDirectMessagesTextView.swift */; };
+		CA5D24C01EF22A36001C07B4 /* ILIncomingMessageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5D24BE1EF22A36001C07B4 /* ILIncomingMessageCollectionViewCell.swift */; };
+		CA5D24C11EF22A36001C07B4 /* ILIncomingMessageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA5D24BF1EF22A36001C07B4 /* ILIncomingMessageCollectionViewCell.xib */; };
+		CA5D24C41EF22A89001C07B4 /* ILOutgoingMessageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5D24C21EF22A89001C07B4 /* ILOutgoingMessageCollectionViewCell.swift */; };
+		CA5D24C51EF22A89001C07B4 /* ILOutgoingMessageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CA5D24C31EF22A89001C07B4 /* ILOutgoingMessageCollectionViewCell.xib */; };
+		CA5D24C91EF22E56001C07B4 /* ILMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5D24C81EF22E56001C07B4 /* ILMessage.swift */; };
+		CA5D24CE1EF2356D001C07B4 /* ILDirectMessagesCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5D24CD1EF2356D001C07B4 /* ILDirectMessagesCollectionViewFlowLayout.swift */; };
+		CA5D24D01EF23E3A001C07B4 /* ILDirectMessagesCollectionViewLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5D24CF1EF23E3A001C07B4 /* ILDirectMessagesCollectionViewLayoutAttributes.swift */; };
+		CA5D24D21EF258F2001C07B4 /* ILDirectMessagesCellSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5D24D11EF258F2001C07B4 /* ILDirectMessagesCellSizeCalculator.swift */; };
+		CA9290591EF1FEAD00A183E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9290581EF1FEAD00A183E0 /* AppDelegate.swift */; };
+		CA92905B1EF1FEAD00A183E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA92905A1EF1FEAD00A183E0 /* ViewController.swift */; };
+		CA92905E1EF1FEAD00A183E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA92905C1EF1FEAD00A183E0 /* Main.storyboard */; };
+		CA9290601EF1FEAD00A183E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA92905F1EF1FEAD00A183E0 /* Assets.xcassets */; };
+		CA9290631EF1FEAD00A183E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA9290611EF1FEAD00A183E0 /* LaunchScreen.storyboard */; };
+		CADC3BBD1EF395BD00887DBF /* ILDirectMessageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC3BBC1EF395BD00887DBF /* ILDirectMessageCollectionViewCell.swift */; };
+		CADC3BBF1EF3A77500887DBF /* ILMessageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC3BBE1EF3A77500887DBF /* ILMessageMetadata.swift */; };
+		CADEBB0E1F0A949800BE41D8 /* ILDirectMessagesInputContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADEBB0D1F0A949800BE41D8 /* ILDirectMessagesInputContainerView.swift */; };
+		CADEBB111F0A96D000BE41D8 /* ILDirectMessagestInputContainerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CADEBB101F0A96D000BE41D8 /* ILDirectMessagestInputContainerView.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CA2E6C5D1EF75398001DBCC5 /* ILDirectMessagesCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILDirectMessagesCollectionView.swift; sourceTree = "<group>"; };
+		CA59A1351F09DDE00089A2B2 /* ILDirectMessagesTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILDirectMessagesTextView.swift; sourceTree = "<group>"; };
+		CA5D24BE1EF22A36001C07B4 /* ILIncomingMessageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILIncomingMessageCollectionViewCell.swift; sourceTree = "<group>"; };
+		CA5D24BF1EF22A36001C07B4 /* ILIncomingMessageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ILIncomingMessageCollectionViewCell.xib; sourceTree = "<group>"; };
+		CA5D24C21EF22A89001C07B4 /* ILOutgoingMessageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILOutgoingMessageCollectionViewCell.swift; sourceTree = "<group>"; };
+		CA5D24C31EF22A89001C07B4 /* ILOutgoingMessageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ILOutgoingMessageCollectionViewCell.xib; sourceTree = "<group>"; };
+		CA5D24C81EF22E56001C07B4 /* ILMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILMessage.swift; sourceTree = "<group>"; };
+		CA5D24CD1EF2356D001C07B4 /* ILDirectMessagesCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILDirectMessagesCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		CA5D24CF1EF23E3A001C07B4 /* ILDirectMessagesCollectionViewLayoutAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILDirectMessagesCollectionViewLayoutAttributes.swift; sourceTree = "<group>"; };
+		CA5D24D11EF258F2001C07B4 /* ILDirectMessagesCellSizeCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILDirectMessagesCellSizeCalculator.swift; sourceTree = "<group>"; };
+		CA9290551EF1FEAD00A183E0 /* ILDirectMessages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ILDirectMessages.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA9290581EF1FEAD00A183E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CA92905A1EF1FEAD00A183E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CA92905D1EF1FEAD00A183E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CA92905F1EF1FEAD00A183E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CA9290621EF1FEAD00A183E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CA9290641EF1FEAD00A183E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CADC3BBC1EF395BD00887DBF /* ILDirectMessageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILDirectMessageCollectionViewCell.swift; sourceTree = "<group>"; };
+		CADC3BBE1EF3A77500887DBF /* ILMessageMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILMessageMetadata.swift; sourceTree = "<group>"; };
+		CADEBB0D1F0A949800BE41D8 /* ILDirectMessagesInputContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILDirectMessagesInputContainerView.swift; sourceTree = "<group>"; };
+		CADEBB101F0A96D000BE41D8 /* ILDirectMessagestInputContainerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ILDirectMessagestInputContainerView.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CA9290521EF1FEAC00A183E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CA2E6C581EF74ECF001DBCC5 /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Demo;
+			sourceTree = "<group>";
+		};
+		CA5D24BD1EF229EF001C07B4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CADEBB0F1F0A959D00BE41D8 /* Input composer */,
+				CADC3BBC1EF395BD00887DBF /* ILDirectMessageCollectionViewCell.swift */,
+				CA5D24BE1EF22A36001C07B4 /* ILIncomingMessageCollectionViewCell.swift */,
+				CA5D24BF1EF22A36001C07B4 /* ILIncomingMessageCollectionViewCell.xib */,
+				CA5D24C21EF22A89001C07B4 /* ILOutgoingMessageCollectionViewCell.swift */,
+				CA5D24C31EF22A89001C07B4 /* ILOutgoingMessageCollectionViewCell.xib */,
+				CA2E6C5D1EF75398001DBCC5 /* ILDirectMessagesCollectionView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		CA5D24C61EF22DDE001C07B4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CA5D24C81EF22E56001C07B4 /* ILMessage.swift */,
+				CADC3BBE1EF3A77500887DBF /* ILMessageMetadata.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		CA5D24CA1EF23534001C07B4 /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				CA5D24CD1EF2356D001C07B4 /* ILDirectMessagesCollectionViewFlowLayout.swift */,
+				CA5D24CF1EF23E3A001C07B4 /* ILDirectMessagesCollectionViewLayoutAttributes.swift */,
+				CA5D24D11EF258F2001C07B4 /* ILDirectMessagesCellSizeCalculator.swift */,
+			);
+			name = Layouts;
+			sourceTree = "<group>";
+		};
+		CA92904C1EF1FEAC00A183E0 = {
+			isa = PBXGroup;
+			children = (
+				CA9290571EF1FEAD00A183E0 /* ILDirectMessages */,
+				CA9290561EF1FEAD00A183E0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CA9290561EF1FEAD00A183E0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CA9290551EF1FEAD00A183E0 /* ILDirectMessages.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CA9290571EF1FEAD00A183E0 /* ILDirectMessages */ = {
+			isa = PBXGroup;
+			children = (
+				CA2E6C581EF74ECF001DBCC5 /* Demo */,
+				CA5D24CA1EF23534001C07B4 /* Layouts */,
+				CA5D24C61EF22DDE001C07B4 /* Models */,
+				CA5D24BD1EF229EF001C07B4 /* Views */,
+				CA92906A1EF200C800A183E0 /* Controllers */,
+				CA9290581EF1FEAD00A183E0 /* AppDelegate.swift */,
+				CA92905C1EF1FEAD00A183E0 /* Main.storyboard */,
+				CA92905F1EF1FEAD00A183E0 /* Assets.xcassets */,
+				CA9290611EF1FEAD00A183E0 /* LaunchScreen.storyboard */,
+				CA9290641EF1FEAD00A183E0 /* Info.plist */,
+			);
+			path = ILDirectMessages;
+			sourceTree = "<group>";
+		};
+		CA92906A1EF200C800A183E0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CA92905A1EF1FEAD00A183E0 /* ViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		CADEBB0F1F0A959D00BE41D8 /* Input composer */ = {
+			isa = PBXGroup;
+			children = (
+				CA59A1351F09DDE00089A2B2 /* ILDirectMessagesTextView.swift */,
+				CADEBB0D1F0A949800BE41D8 /* ILDirectMessagesInputContainerView.swift */,
+				CADEBB101F0A96D000BE41D8 /* ILDirectMessagestInputContainerView.xib */,
+			);
+			name = "Input composer";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CA9290541EF1FEAC00A183E0 /* ILDirectMessages */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CA9290671EF1FEAD00A183E0 /* Build configuration list for PBXNativeTarget "ILDirectMessages" */;
+			buildPhases = (
+				CA9290511EF1FEAC00A183E0 /* Sources */,
+				CA9290521EF1FEAC00A183E0 /* Frameworks */,
+				CA9290531EF1FEAC00A183E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ILDirectMessages;
+			productName = "ILDirect-iOS";
+			productReference = CA9290551EF1FEAD00A183E0 /* ILDirectMessages.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CA92904D1EF1FEAC00A183E0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Igar Liubavetskiy";
+				TargetAttributes = {
+					CA9290541EF1FEAC00A183E0 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = G2F78XDFSY;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = CA9290501EF1FEAC00A183E0 /* Build configuration list for PBXProject "ILDirectMessages" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CA92904C1EF1FEAC00A183E0;
+			productRefGroup = CA9290561EF1FEAD00A183E0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CA9290541EF1FEAC00A183E0 /* ILDirectMessages */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CA9290531EF1FEAC00A183E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA9290631EF1FEAD00A183E0 /* LaunchScreen.storyboard in Resources */,
+				CA5D24C11EF22A36001C07B4 /* ILIncomingMessageCollectionViewCell.xib in Resources */,
+				CA5D24C51EF22A89001C07B4 /* ILOutgoingMessageCollectionViewCell.xib in Resources */,
+				CA9290601EF1FEAD00A183E0 /* Assets.xcassets in Resources */,
+				CA92905E1EF1FEAD00A183E0 /* Main.storyboard in Resources */,
+				CADEBB111F0A96D000BE41D8 /* ILDirectMessagestInputContainerView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CA9290511EF1FEAC00A183E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CA5D24D21EF258F2001C07B4 /* ILDirectMessagesCellSizeCalculator.swift in Sources */,
+				CA92905B1EF1FEAD00A183E0 /* ViewController.swift in Sources */,
+				CA5D24D01EF23E3A001C07B4 /* ILDirectMessagesCollectionViewLayoutAttributes.swift in Sources */,
+				CADC3BBF1EF3A77500887DBF /* ILMessageMetadata.swift in Sources */,
+				CADC3BBD1EF395BD00887DBF /* ILDirectMessageCollectionViewCell.swift in Sources */,
+				CA5D24C41EF22A89001C07B4 /* ILOutgoingMessageCollectionViewCell.swift in Sources */,
+				CA5D24C91EF22E56001C07B4 /* ILMessage.swift in Sources */,
+				CA2E6C5E1EF75398001DBCC5 /* ILDirectMessagesCollectionView.swift in Sources */,
+				CA9290591EF1FEAD00A183E0 /* AppDelegate.swift in Sources */,
+				CA59A1361F09DDE00089A2B2 /* ILDirectMessagesTextView.swift in Sources */,
+				CA5D24CE1EF2356D001C07B4 /* ILDirectMessagesCollectionViewFlowLayout.swift in Sources */,
+				CA5D24C01EF22A36001C07B4 /* ILIncomingMessageCollectionViewCell.swift in Sources */,
+				CADEBB0E1F0A949800BE41D8 /* ILDirectMessagesInputContainerView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CA92905C1EF1FEAD00A183E0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CA92905D1EF1FEAD00A183E0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CA9290611EF1FEAD00A183E0 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CA9290621EF1FEAD00A183E0 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CA9290651EF1FEAD00A183E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CA9290661EF1FEAD00A183E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CA9290681EF1FEAD00A183E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = G2F78XDFSY;
+				INFOPLIST_FILE = ILDirectMessages/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = co.ILDirectMessages;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		CA9290691EF1FEAD00A183E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = G2F78XDFSY;
+				INFOPLIST_FILE = ILDirectMessages/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = co.ILDirectMessages;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CA9290501EF1FEAC00A183E0 /* Build configuration list for PBXProject "ILDirectMessages" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA9290651EF1FEAD00A183E0 /* Debug */,
+				CA9290661EF1FEAD00A183E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CA9290671EF1FEAD00A183E0 /* Build configuration list for PBXNativeTarget "ILDirectMessages" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CA9290681EF1FEAD00A183E0 /* Debug */,
+				CA9290691EF1FEAD00A183E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CA92904D1EF1FEAC00A183E0 /* Project object */;
+}
