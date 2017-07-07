@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ILDirectInputContainerView" customModule="ILDirect_iOS" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ILDirectMessagesInputContainerView" customModule="ILDirectMessages" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="Lbc-Uk-x2a" id="jnf-rm-DY0"/>
                 <outlet property="sendBarButtonItem" destination="cVi-GZ-WJM" id="ABa-mz-VPg"/>
@@ -32,7 +32,7 @@
                                 <constraint firstAttribute="height" constant="1" id="aGi-T2-fWP"/>
                             </constraints>
                         </view>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Placeholder..." translatesAutoresizingMaskIntoConstraints="NO" id="iwq-Rx-mqp" customClass="ILDirectTextView" customModule="ILDirect_iOS" customModuleProvider="target">
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Placeholder..." translatesAutoresizingMaskIntoConstraints="NO" id="iwq-Rx-mqp" customClass="ILDirectTextView" customModule="ILDirectMessages" customModuleProvider="target">
                             <rect key="frame" x="10" y="15" width="355" height="30"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>

@@ -25,7 +25,7 @@
 		CADC3BBD1EF395BD00887DBF /* ILDirectMessageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC3BBC1EF395BD00887DBF /* ILDirectMessageCollectionViewCell.swift */; };
 		CADC3BBF1EF3A77500887DBF /* ILMessageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC3BBE1EF3A77500887DBF /* ILMessageMetadata.swift */; };
 		CADEBB0E1F0A949800BE41D8 /* ILDirectMessagesInputContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADEBB0D1F0A949800BE41D8 /* ILDirectMessagesInputContainerView.swift */; };
-		CADEBB111F0A96D000BE41D8 /* ILDirectMessagestInputContainerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CADEBB101F0A96D000BE41D8 /* ILDirectMessagestInputContainerView.xib */; };
+		CADEBB111F0A96D000BE41D8 /* ILDirectMessagesInputContainerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CADEBB101F0A96D000BE41D8 /* ILDirectMessagesInputContainerView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,7 +49,7 @@
 		CADC3BBC1EF395BD00887DBF /* ILDirectMessageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILDirectMessageCollectionViewCell.swift; sourceTree = "<group>"; };
 		CADC3BBE1EF3A77500887DBF /* ILMessageMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILMessageMetadata.swift; sourceTree = "<group>"; };
 		CADEBB0D1F0A949800BE41D8 /* ILDirectMessagesInputContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILDirectMessagesInputContainerView.swift; sourceTree = "<group>"; };
-		CADEBB101F0A96D000BE41D8 /* ILDirectMessagestInputContainerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ILDirectMessagestInputContainerView.xib; sourceTree = "<group>"; };
+		CADEBB101F0A96D000BE41D8 /* ILDirectMessagesInputContainerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ILDirectMessagesInputContainerView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,7 +149,7 @@
 			children = (
 				CA59A1351F09DDE00089A2B2 /* ILDirectMessagesTextView.swift */,
 				CADEBB0D1F0A949800BE41D8 /* ILDirectMessagesInputContainerView.swift */,
-				CADEBB101F0A96D000BE41D8 /* ILDirectMessagestInputContainerView.xib */,
+				CADEBB101F0A96D000BE41D8 /* ILDirectMessagesInputContainerView.xib */,
 			);
 			name = "Input composer";
 			sourceTree = "<group>";
@@ -219,7 +219,7 @@
 				CA5D24C51EF22A89001C07B4 /* ILOutgoingMessageCollectionViewCell.xib in Resources */,
 				CA9290601EF1FEAD00A183E0 /* Assets.xcassets in Resources */,
 				CA92905E1EF1FEAD00A183E0 /* Main.storyboard in Resources */,
-				CADEBB111F0A96D000BE41D8 /* ILDirectMessagestInputContainerView.xib in Resources */,
+				CADEBB111F0A96D000BE41D8 /* ILDirectMessagesInputContainerView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
