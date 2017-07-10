@@ -46,15 +46,17 @@ extension ILDirectMessagesCollectionViewLayoutAttributes {
     }
     
     override func isEqual(_ object: Any?) -> Bool {
-        guard let attributesObject = object as? ILDirectMessagesCollectionViewLayoutAttributes else { return false }
+        guard let _ = object as? ILDirectMessagesCollectionViewLayoutAttributes else { return false }
+        return super.isEqual(object)
         
-        return (attributesObject.messageFont == self.messageFont &&
-            UIEdgeInsetsEqualToEdgeInsets(attributesObject.textViewFrameInsets, self.textViewFrameInsets) &&
-            UIEdgeInsetsEqualToEdgeInsets(attributesObject.textViewTextContainerInsets, self.textViewTextContainerInsets) &&
-            __CGSizeEqualToSize(attributesObject.incomingProfileImageViewSize, self.incomingProfileImageViewSize) &&
-            __CGSizeEqualToSize(attributesObject.outgoingProfileImageViewSize, self.outgoingProfileImageViewSize) &&
-            (attributesObject.messageContainerViewWidth != self.messageContainerViewWidth) &&
-            (attributesObject.topLabelHeight != self.topLabelHeight) &&
-            (attributesObject.bottomLabelHeight != self.bottomLabelHeight))
+        // TODO: redo equality checking
+//        return (attributesObject.messageFont == self.messageFont &&
+//            UIEdgeInsetsEqualToEdgeInsets(attributesObject.textViewFrameInsets, self.textViewFrameInsets) &&
+//            UIEdgeInsetsEqualToEdgeInsets(attributesObject.textViewTextContainerInsets, self.textViewTextContainerInsets) &&
+//            __CGSizeEqualToSize(attributesObject.incomingProfileImageViewSize, self.incomingProfileImageViewSize) &&
+//            __CGSizeEqualToSize(attributesObject.outgoingProfileImageViewSize, self.outgoingProfileImageViewSize) &&
+//            (attributesObject.messageContainerViewWidth != self.messageContainerViewWidth) &&
+//            (attributesObject.topLabelHeight != self.topLabelHeight) &&
+//            (attributesObject.bottomLabelHeight != self.bottomLabelHeight))
     }
 }

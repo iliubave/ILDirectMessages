@@ -10,23 +10,38 @@ import UIKit
 
 class ILDirectMessagesCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
-    var messageFont: UIFont!
-    var messageTextViewFrameInsets: UIEdgeInsets!
-    var messageTextViewTextContainerInsets: UIEdgeInsets!
-    var topLabelHeight: CGFloat!
-    var bottomLabelHeight: CGFloat!
-    var incomingProfileImageViewSize: CGSize!
-    var outgoingProfileImageViewSize: CGSize!
+    internal var messageFont: UIFont!
+    internal var messageTextViewFrameInsets: UIEdgeInsets!
+    internal var messageTextViewTextContainerInsets: UIEdgeInsets!
+    internal var topLabelHeight: CGFloat!
+    internal var bottomLabelHeight: CGFloat!
+    internal var incomingProfileImageViewSize: CGSize!
+    internal var outgoingProfileImageViewSize: CGSize!
     
     internal var cellSizeCalculator = ILDirectMessagesCellSizeCalculator()
     
-    var itemWidth: CGFloat {
+    internal var isDynamicAnimatorEnabled: Bool = true
+    internal lazy var dynamicAnimator: UIDynamicAnimator = {
+        return UIDynamicAnimator(collectionViewLayout: self)
+    }()
+    
+    internal var itemWidth: CGFloat {
         get {
             guard let collectionView = self.collectionView else { return 0.0 }
             return collectionView.frame.width - self.sectionInset.left - self.sectionInset.right
         }
     }
     
+    internal var visibleIndexPaths: [IndexPath] = []
+    internal var lastContentOffset: CGPoint = CGPoint.zero
+    internal var lastScrollDelta: CGFloat = 0.0
+    internal var lastTouchLocation: CGPoint = CGPoint.zero
+    
+    internal let scrollPadding: CGFloat = 300.0
+    internal let scrollRefreshThreshold: CGFloat = 50.0
+    internal let scrollResistanceCoefficient: CGFloat = 1 / 4500.0
+    internal let damping: CGFloat = 1.0
+    internal let frequency: CGFloat = 1.0
     
     override class var layoutAttributesClass: AnyClass {
         return ILDirectMessagesCollectionViewLayoutAttributes.self
@@ -38,15 +53,7 @@ class ILDirectMessagesCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.commonPrepare()
-    }
-    
-    override func prepare() {
-        super.prepare()
-        self.commonPrepare()
-    }
-    
-    func commonPrepare() {
+        
         self.scrollDirection = .vertical
         self.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
         self.minimumLineSpacing = 2.0;
@@ -62,10 +69,29 @@ class ILDirectMessagesCollectionViewFlowLayout: UICollectionViewFlowLayout {
         
         self.topLabelHeight = 0.0
         self.bottomLabelHeight = 0.0
-
-        // todo 
-        // Add observer for Memory warning notifications
-        // Add observer for Orientation change notifications
+    }
+    
+    override func prepare() {
+        super.prepare()
+        self.commonPrepare()
+    }
+    
+    func commonPrepare() {
+        if self.isDynamicAnimatorEnabled,
+            let collectionView = self.collectionView,
+            let itemsInCurrentRect = super.layoutAttributesForElements(in: currentRect),
+            !self.shouldReturnOnPrepare {
+            
+            lastContentOffset = collectionView.contentOffset
+            
+            let indexPathsInVisibleRect = itemsInCurrentRect.map { $0.indexPath }
+            
+            self.dynamicAnimator.behaviors.forEach { removeIfNeeded(forBehavior: $0, indexPaths: indexPathsInVisibleRect) }
+            
+            let newVisibleItems = itemsInCurrentRect.filter { !self.visibleIndexPaths.contains($0.indexPath) }
+            
+            newVisibleItems.forEach { add(toAttributes: $0) }
+        }
     }
     
 }
@@ -73,16 +99,41 @@ class ILDirectMessagesCollectionViewFlowLayout: UICollectionViewFlowLayout {
 extension ILDirectMessagesCollectionViewFlowLayout {
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        let attributesInRect = super.layoutAttributesForElements(in: rect)!
-        for attributes in attributesInRect {
-            if (attributes.representedElementCategory == UICollectionElementCategory.cell) {
-                self.configureMessageCellLayoutAttributes(with: attributes as! ILDirectMessagesCollectionViewLayoutAttributes)
-            } else {
-                attributes.zIndex = -1
+        var rect = rect
+        rect.size.height += scrollPadding
+        rect.origin.y -= scrollPadding
+        
+        guard let attributesInRect: [UICollectionViewLayoutAttributes] = super.layoutAttributesForElements(in: rect),
+            var attributesInRectCopy = NSArray(array: attributesInRect, copyItems: true) as? [UICollectionViewLayoutAttributes] else { return nil }
+        
+        if self.isDynamicAnimatorEnabled {
+            let dynamicAttributes = dynamicAnimator.items(in: rect) as! [UICollectionViewLayoutAttributes]
+            
+            for attributesObject in attributesInRectCopy {
+                let attributesObjectCopy = attributesObject.copy() as! ILDirectMessagesCollectionViewLayoutAttributes
+                for dynamicAttributesObject in dynamicAttributes {
+                    if (attributesObjectCopy.indexPath == dynamicAttributesObject.indexPath &&
+                        attributesObjectCopy.representedElementCategory == dynamicAttributesObject.representedElementCategory) {
+                        
+                        if let indexOfAttributesObject = attributesInRectCopy.index(of: attributesObjectCopy) {
+                            attributesInRectCopy.remove(at: indexOfAttributesObject)
+                            attributesInRectCopy.append(dynamicAttributesObject)
+                            continue
+                        }
+                    }
+                }
             }
         }
         
-        return attributesInRect
+        for attributesObject in attributesInRectCopy {
+            if (attributesObject.representedElementCategory == UICollectionElementCategory.cell) {
+                self.configureMessageCellLayoutAttributes(with: attributesObject as! ILDirectMessagesCollectionViewLayoutAttributes)
+            } else {
+                attributesObject.zIndex = -1
+            }
+        }
+        
+        return attributesInRectCopy
     }
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
@@ -100,15 +151,109 @@ extension ILDirectMessagesCollectionViewFlowLayout {
     }
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-        return true
+        guard let collectionView = self.collectionView else { return false }
+        
+        lastScrollDelta = newBounds.origin.y - collectionView.bounds.origin.y
+        lastTouchLocation = collectionView.panGestureRecognizer.location(in: collectionView)
+        
+        dynamicAnimator.behaviors.forEach { update($0, withLastTouchLocation: lastTouchLocation) }
+        
+        return false
+    }
+    
+}
+
+extension ILDirectMessagesCollectionViewFlowLayout {
+    
+    internal func adjust(_ attachmentBehavior: UIAttachmentBehavior, centerForTouchPosition touchLocation: CGPoint) {
+        guard let item = attachmentBehavior.items.first else { return }
+        
+        let distanceFromTouchY = fabs(touchLocation.y - attachmentBehavior.anchorPoint.y)
+        let distanceFromTouchX = fabs(touchLocation.x - attachmentBehavior.anchorPoint.x)
+        let scrollResistance = (distanceFromTouchX + distanceFromTouchY) * self.scrollResistanceCoefficient
+        
+        var center = item.center
+        
+        if self.lastScrollDelta < 0.0 {
+            center.y += max(lastScrollDelta, self.lastScrollDelta * scrollResistance)
+        } else {
+            center.y += min(lastScrollDelta, self.lastScrollDelta * scrollResistance)
+        }
+        
+        item.center = center
+    }
+    
+    internal func attachmentBehavior(with attributes: UICollectionViewLayoutAttributes) -> UIAttachmentBehavior {
+        let attachmentBehavior = UIAttachmentBehavior.init(item: attributes, attachedToAnchor: attributes.center)
+        attachmentBehavior.length = 0.0
+        attachmentBehavior.frequency = self.frequency
+        attachmentBehavior.damping = self.damping
+        attachmentBehavior.action = { [weak attachmentBehavior] in
+            guard let attachmentBehavior = attachmentBehavior else { return }
+            
+            let delta = fabs(attributes.center.y - attachmentBehavior.anchorPoint.y)
+            attachmentBehavior.damping = delta <= 1.0 ? 100.0 : self.damping
+        }
+        
+        return attachmentBehavior
+    }
+    
+    internal func removeIfNeeded(forBehavior behavior: UIDynamicBehavior, indexPaths: [IndexPath]) {
+        guard let attachmentBehavior = behavior as? UIAttachmentBehavior,
+            let firstBehavior = attachmentBehavior.items.first,
+            let attributes = firstBehavior as? UICollectionViewLayoutAttributes,
+            !indexPaths.contains(attributes.indexPath) else { return }
+        
+        self.dynamicAnimator.removeBehavior(behavior)
+        
+        if let index = visibleIndexPaths.index(of: attributes.indexPath) {
+            visibleIndexPaths.remove(at: index)
+        }
+    }
+    
+    internal func add(toAttributes attributes: UICollectionViewLayoutAttributes) {
+        let attachmentBehavior = self.attachmentBehavior(with: attributes)
+        
+        if self.lastScrollDelta != 0.0 {
+            adjust(attachmentBehavior, centerForTouchPosition: lastTouchLocation)
+        }
+        
+        self.dynamicAnimator.addBehavior(attachmentBehavior)
+        self.visibleIndexPaths.append(attributes.indexPath)
+    }
+    
+    internal func update(_ behavior: UIDynamicBehavior, withLastTouchLocation touchLocation: CGPoint) {
+        guard let attachmentBehavior = behavior as? UIAttachmentBehavior,
+            let item = attachmentBehavior.items.first else { return }
+        
+        self.adjust(attachmentBehavior, centerForTouchPosition: lastTouchLocation)
+        self.dynamicAnimator.updateItem(usingCurrentState: item)
+    }
+    
+    internal var scrollBelowThreshold: Bool {
+        guard let contentOffset = self.collectionView?.contentOffset else { return true }
+        return fabs(contentOffset.y - self.lastContentOffset.y) < self.scrollRefreshThreshold
+    }
+    
+    internal var shouldReturnOnPrepare: Bool {
+        return scrollBelowThreshold && visibleIndexPaths.count > 0
+    }
+    
+    internal var currentRect: CGRect {
+        guard let collectionView = self.collectionView else { return CGRect.zero }
+        
+        let y: CGFloat = collectionView.contentOffset.y - self.scrollPadding
+        let height: CGFloat = collectionView.bounds.size.height + self.scrollPadding
+        
+        return CGRect(x: 0.0, y: y, width: collectionView.bounds.width, height: height)
     }
 }
 
 extension ILDirectMessagesCollectionViewFlowLayout {
     func messageContainerSizeForItem(at indexPath: IndexPath) -> CGSize {
-        guard let collectionView = self.collectionView as? ILDirectMessagesCollectionView else { return CGSize.zero }
-        let messageMetadata = collectionView.message(at: indexPath)
+        guard let collectionView = self.collectionView as? ILDirectMessagesCollectionView  else { return CGSize.zero }
         
+        let messageMetadata = collectionView.message(at: indexPath)
         return self.cellSizeCalculator.cellContainerSizeForItem(at: indexPath, messageMetadata: messageMetadata, layout: self)
     }
     

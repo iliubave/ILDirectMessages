@@ -16,7 +16,6 @@ class ILDirectMessagesCellSizeCalculator: NSObject {
 
     func cellContainerSizeForItem(at indexPath: IndexPath, messageMetadata: ILMessageMetadata, layout: ILDirectMessagesCollectionViewFlowLayout) -> CGSize {
         if let cachedSize = self.cache[messageMetadata.hash] {
-            print("Cached size FOR \(indexPath.item)")
             return cachedSize
         }
         

@@ -9,6 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
     @IBOutlet weak var collectionView: ILDirectMessagesCollectionView!
     @IBOutlet weak var inputContainerView: ILDirectMessagesInputContainerView!
     
@@ -30,7 +31,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         self.messages = self.prepareDemoMessages()
         self.collectionView.messages = self.messages
-        self.collectionView.collectionViewLayout.invalidateLayout()
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(ViewController.keyboardWillShow(notification:)),
@@ -38,6 +38,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(ViewController.keyboardWillHide(notification:)),
                                                name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+//        self.collectionView.reloadData()
+//        self.collectionView.collectionViewLayout.invalidateLayout()
     }
     
     func prepareDemoMessages() -> [ILMessage] {
@@ -68,7 +75,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return self.messages.count
     }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -86,14 +93,11 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         
         cell.configure(text: message.body)
-        
         return cell!
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = (self.collectionView.collectionViewLayout as! ILDirectMessagesCollectionViewFlowLayout).sizeForItem(at: indexPath)
-        
-        print("\(size) for \(indexPath.item)")
         return size
     }
 }
