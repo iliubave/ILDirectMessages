@@ -19,6 +19,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var inputContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var inputContainerViewBottomConstraint: NSLayoutConstraint!
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
