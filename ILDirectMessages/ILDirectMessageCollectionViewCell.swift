@@ -92,7 +92,7 @@ class ILDirectMessageCollectionViewCell: UICollectionViewCell {
             self.textViewTopConstraint.constant = customLayoutAttributes.textViewFrameInsets.top
             self.textViewBottomConstraint.constant = customLayoutAttributes.textViewFrameInsets.bottom
             self.textViewLeadingConstraint.constant = customLayoutAttributes.textViewFrameInsets.left
-            self.textViewLeadingConstraint.constant = customLayoutAttributes.textViewFrameInsets.right
+            self.textViewTrailingConstraint.constant = customLayoutAttributes.textViewFrameInsets.right
         }
         
         if (customLayoutAttributes.messageContainerViewWidth != self.messageContainerWidthConstraint.constant) {

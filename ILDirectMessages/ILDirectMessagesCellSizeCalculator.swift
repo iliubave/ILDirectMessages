@@ -37,8 +37,8 @@ class ILDirectMessagesCellSizeCalculator: NSObject {
         
         let verticalInsets = verticalContainerInsets + verticalFrameInsets + layout.topLabelHeight + layout.bottomLabelHeight
         
-        let finalWidth = textViewSize.width
-        let finalHeight = max(textViewSize.height + verticalInsets, 30.0)
+        let finalWidth = textViewSize.width + 2.0
+        let finalHeight = max(textViewSize.height + verticalInsets, 30.0) + 2.0
         
         let finalSize = CGSize(width: finalWidth, height: finalHeight)
         self.cache[messageMetadata.hash] = finalSize

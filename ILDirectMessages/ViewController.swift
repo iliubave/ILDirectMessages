@@ -60,7 +60,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             if i % 2 == 0 {
                 message.isIncoming = true
                 message.senderName = "Tim Cook"
-            message.body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+                message.body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
             } else if i % 3 == 0 {
                 message.isIncoming = true
                 message.senderName = "Tim Cook"
@@ -127,12 +127,19 @@ extension ViewController {
         }
     }
     func keyboardWillHide(notification: NSNotification) {
-        if let keyboardFrame = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if let _ = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             print("Hide")
+            guard let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? Double,
+                let options = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? UInt else { return }
             
-            self.collectionView.contentInset = UIEdgeInsets.zero
-            self.collectionView.scrollIndicatorInsets = UIEdgeInsets.zero
-            self.inputContainerViewBottomConstraint.constant = 0.0
+            UIView.animate(withDuration: duration, delay: 0.0, options: UIViewAnimationOptions.init(rawValue: options), animations: {
+                self.collectionView.contentInset = UIEdgeInsets.zero
+                self.collectionView.scrollIndicatorInsets = UIEdgeInsets.zero
+                self.inputContainerViewBottomConstraint.constant = 0.0
+                self.view.layoutIfNeeded()
+            }, completion: { (success) in
+                
+            })
         }
     }
 }
