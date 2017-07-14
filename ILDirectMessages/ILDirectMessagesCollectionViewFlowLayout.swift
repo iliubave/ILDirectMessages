@@ -20,7 +20,6 @@ class ILDirectMessagesCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
     internal var cellSizeCalculator = ILDirectMessagesCellSizeCalculator()
     
-    internal var isDynamicAnimatorEnabled: Bool = true
     internal lazy var dynamicAnimator: UIDynamicAnimator = {
         return UIDynamicAnimator(collectionViewLayout: self)
     }()
@@ -45,6 +44,10 @@ class ILDirectMessagesCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
     override class var layoutAttributesClass: AnyClass {
         return ILDirectMessagesCollectionViewLayoutAttributes.self
+    }
+    
+    override class var invalidationContextClass: AnyClass {
+        return ILDirectMessagesCollectionViewFlowLayoutInvalidationContext.self
     }
     
     deinit {
@@ -77,8 +80,7 @@ class ILDirectMessagesCollectionViewFlowLayout: UICollectionViewFlowLayout {
     }
     
     func commonPrepare() {
-        if self.isDynamicAnimatorEnabled,
-            let collectionView = self.collectionView,
+        if let collectionView = self.collectionView,
             let itemsInCurrentRect = super.layoutAttributesForElements(in: currentRect),
             !self.shouldReturnOnPrepare {
             
@@ -86,7 +88,7 @@ class ILDirectMessagesCollectionViewFlowLayout: UICollectionViewFlowLayout {
             
             let indexPathsInVisibleRect = itemsInCurrentRect.map { $0.indexPath }
             
-            self.dynamicAnimator.behaviors.forEach { removeIfNeeded(forBehavior: $0, indexPaths: indexPathsInVisibleRect) }
+            self.dynamicAnimator.behaviors.forEach { self.removeIfNeeded(forBehavior: $0, indexPaths: indexPathsInVisibleRect) }
             
             let newVisibleItems = itemsInCurrentRect.filter { !self.visibleIndexPaths.contains($0.indexPath) }
             
@@ -106,20 +108,18 @@ extension ILDirectMessagesCollectionViewFlowLayout {
         guard let attributesInRect: [UICollectionViewLayoutAttributes] = super.layoutAttributesForElements(in: rect),
             var attributesInRectCopy = NSArray(array: attributesInRect, copyItems: true) as? [UICollectionViewLayoutAttributes] else { return nil }
         
-        if self.isDynamicAnimatorEnabled {
-            let dynamicAttributes = dynamicAnimator.items(in: rect) as! [UICollectionViewLayoutAttributes]
+        let dynamicAttributes = dynamicAnimator.items(in: rect) as! [UICollectionViewLayoutAttributes]
             
-            for attributesObject in attributesInRectCopy {
-                let attributesObjectCopy = attributesObject.copy() as! ILDirectMessagesCollectionViewLayoutAttributes
-                for dynamicAttributesObject in dynamicAttributes {
-                    if (attributesObjectCopy.indexPath == dynamicAttributesObject.indexPath &&
-                        attributesObjectCopy.representedElementCategory == dynamicAttributesObject.representedElementCategory) {
-                        
-                        if let indexOfAttributesObject = attributesInRectCopy.index(of: attributesObjectCopy) {
-                            attributesInRectCopy.remove(at: indexOfAttributesObject)
-                            attributesInRectCopy.append(dynamicAttributesObject)
-                            continue
-                        }
+        for attributesObject in attributesInRectCopy {
+            let attributesObjectCopy = attributesObject.copy() as! ILDirectMessagesCollectionViewLayoutAttributes
+            for dynamicAttributesObject in dynamicAttributes {
+                if (attributesObjectCopy.indexPath == dynamicAttributesObject.indexPath &&
+                    attributesObjectCopy.representedElementCategory == dynamicAttributesObject.representedElementCategory) {
+                    
+                    if let indexOfAttributesObject = attributesInRectCopy.index(of: attributesObjectCopy) {
+                        attributesInRectCopy.remove(at: indexOfAttributesObject)
+                        attributesInRectCopy.append(dynamicAttributesObject)
+                        continue
                     }
                 }
             }
@@ -146,19 +146,40 @@ extension ILDirectMessagesCollectionViewFlowLayout {
         return customAttributes
     }
     
-    func prepareAttributes(forElementAtIndexPath indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        return self.prepareAttributes(forElementAtIndexPath: indexPath)
-    }
-    
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         guard let collectionView = self.collectionView else { return false }
         
-        lastScrollDelta = newBounds.origin.y - collectionView.bounds.origin.y
-        lastTouchLocation = collectionView.panGestureRecognizer.location(in: collectionView)
+        self.lastScrollDelta = newBounds.origin.y - collectionView.bounds.origin.y
+        self.lastTouchLocation = collectionView.panGestureRecognizer.location(in: collectionView)
         
-        dynamicAnimator.behaviors.forEach { update($0, withLastTouchLocation: lastTouchLocation) }
+        if !self.shouldReturnOnPrepare {
+            self.invalidateLayout()
+        }
+        
+        self.dynamicAnimator.behaviors.forEach { update($0, withLastTouchLocation: lastTouchLocation) }
         
         return false
+    }
+    
+    func invalidateLayout(with context: ILDirectMessagesCollectionViewFlowLayoutInvalidationContext) {
+        if context.invalidateDataSourceCounts {
+            context.invalidateFlowLayoutAttributes = true
+            context.invalidateFlowLayoutDelegateMetrics = true
+        }
+        
+        if (context.invalidateFlowLayoutAttributes || context.invalidateFlowLayoutDelegateMetrics) {
+            self.dynamicAnimator.removeAllBehaviors()
+            self.visibleIndexPaths.removeAll()
+        }
+        
+        if context.invalidateFlowLayoutCache {
+            self.cellSizeCalculator.cache.removeAll()
+            self.dynamicAnimator.removeAllBehaviors()
+            self.visibleIndexPaths.removeAll()
+            print("if context.invalidateFlowLayoutCache")
+        }
+        
+        super.invalidateLayout(with: context)
     }
     
 }
@@ -173,6 +194,7 @@ extension ILDirectMessagesCollectionViewFlowLayout {
         let scrollResistance = (distanceFromTouchX + distanceFromTouchY) * self.scrollResistanceCoefficient
         
         var center = item.center
+        guard !__CGPointEqualToPoint(center, CGPoint.zero) else { return }
         
         if self.lastScrollDelta < 0.0 {
             center.y += max(lastScrollDelta, self.lastScrollDelta * scrollResistance)
@@ -215,7 +237,7 @@ extension ILDirectMessagesCollectionViewFlowLayout {
         let attachmentBehavior = self.attachmentBehavior(with: attributes)
         
         if self.lastScrollDelta != 0.0 {
-            adjust(attachmentBehavior, centerForTouchPosition: lastTouchLocation)
+            self.adjust(attachmentBehavior, centerForTouchPosition: lastTouchLocation)
         }
         
         self.dynamicAnimator.addBehavior(attachmentBehavior)
@@ -226,7 +248,7 @@ extension ILDirectMessagesCollectionViewFlowLayout {
         guard let attachmentBehavior = behavior as? UIAttachmentBehavior,
             let item = attachmentBehavior.items.first else { return }
         
-        self.adjust(attachmentBehavior, centerForTouchPosition: lastTouchLocation)
+        self.adjust(attachmentBehavior, centerForTouchPosition: self.lastTouchLocation)
         self.dynamicAnimator.updateItem(usingCurrentState: item)
     }
     
@@ -236,8 +258,9 @@ extension ILDirectMessagesCollectionViewFlowLayout {
     }
     
     internal var shouldReturnOnPrepare: Bool {
-        return scrollBelowThreshold && visibleIndexPaths.count > 0
+        return self.scrollBelowThreshold && self.visibleIndexPaths.count == 0
     }
+
     
     internal var currentRect: CGRect {
         guard let collectionView = self.collectionView else { return CGRect.zero }

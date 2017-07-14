@@ -47,13 +47,17 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        self.collectionView.reloadData()
-//        self.collectionView.collectionViewLayout.invalidateLayout()
+        DispatchQueue.main.async {
+            let context = ILDirectMessagesCollectionViewFlowLayoutInvalidationContext.context
+            context.invalidateFlowLayoutCache = true
+            (self.collectionView.collectionViewLayout as? ILDirectMessagesCollectionViewFlowLayout)?.invalidateLayout(with: context)
+            self.scrollToLastItem(animated: false)
+        }
     }
     
     func prepareDemoMessages() -> [ILMessage] {
         var messages: [ILMessage] = []
-        for i in 0...15 {
+        for i in 0...20 {
             let message = ILMessage()
             message.date = Date(timeIntervalSinceNow: 0)
             
@@ -107,9 +111,21 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 }
 
 extension ViewController {
+    func scrollToLastItem(animated: Bool) {
+        let lastIndexPath = IndexPath(item: self.collectionView.numberOfItems(inSection: 0) - 1, section: 0)
+        self.collectionView.scrollToItem(at:lastIndexPath, at: .bottom, animated: animated)
+    }
+
+    func animateSending(animated: Bool) {
+        self.inputContainerView.textView.text = nil
+        self.collectionView.reloadData()
+        self.scrollToLastItem(animated: animated)
+    }
+}
+
+extension ViewController {
     func keyboardWillShow(notification: NSNotification) {
         if let keyboardFrame = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            print("Show")
             guard let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? Double,
                 let options = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? UInt else { return }
             
@@ -127,12 +143,17 @@ extension ViewController {
         }
     }
     func keyboardWillHide(notification: NSNotification) {
-        if let _ = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            print("Hide")
+        if let keyboardFrame = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             guard let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? Double,
                 let options = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? UInt else { return }
             
             UIView.animate(withDuration: duration, delay: 0.0, options: UIViewAnimationOptions.init(rawValue: options), animations: {
+                let bottom = self.collectionView.frame.maxY - self.inputContainerView.frame.minY
+
+                let insets = UIEdgeInsets(top: self.topLayoutGuide.length + keyboardFrame.size.height, left: 0.0, bottom: bottom - keyboardFrame.size.height, right: 0.0)
+                
+                self.collectionView.setContentOffset(CGPoint(x: 0.0, y: self.collectionView.contentOffset.y + insets.bottom), animated: true)
+                
                 self.collectionView.contentInset = UIEdgeInsets.zero
                 self.collectionView.scrollIndicatorInsets = UIEdgeInsets.zero
                 self.inputContainerViewBottomConstraint.constant = 0.0
@@ -144,9 +165,35 @@ extension ViewController {
     }
 }
 
+extension ViewController {
+    func message(with body: String) -> ILMessage {
+        let message = ILMessage()
+        message.date = Date(timeIntervalSinceNow: 0)
+        message.isIncoming = true
+        message.senderName = "Me"
+        message.body = body
+        message.isMediaMessage = false
+    
+        return message
+    }
+}
+
 extension ViewController: ILDirectMessagesInputContainerDelegate {
     func sizeForInputContainerView(size: CGSize) {
         self.inputContainerViewHeightConstraint.constant = size.height
+    }
+    
+    func sendButtonTapped(with textView: UITextView) {
+        
+        if textView.text.isEmpty {
+            return
+        }
+        
+        let message = self.message(with: textView.text)
+        self.messages.append(message)
+        self.collectionView.messages = self.messages
+        
+        self.animateSending(animated: true)
     }
 }
 

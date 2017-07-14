@@ -46,7 +46,7 @@
                             </connections>
                         </textView>
                     </subviews>
-                    <color key="backgroundColor" red="1" green="0.43730387980000002" blue="0.42556841610000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="iwq-Rx-mqp" secondAttribute="bottom" constant="10" id="2mZ-UB-S1A"/>
                         <constraint firstItem="BeK-FU-bpr" firstAttribute="top" secondItem="fb6-e4-r94" secondAttribute="top" id="7Nx-5b-Lth"/>
@@ -86,6 +86,9 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="N1W-MJ-VCQ"/>
                         <barButtonItem title="Send" id="cVi-GZ-WJM">
                             <color key="tintColor" red="0.21960784310000001" green="0.21960784310000001" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="sendBarButtonItemTapped:" destination="-1" id="e7S-0h-NfE"/>
+                            </connections>
                         </barButtonItem>
                     </items>
                 </toolbar>

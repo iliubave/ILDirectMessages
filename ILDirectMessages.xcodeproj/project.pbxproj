@@ -22,6 +22,7 @@
 		CA92905E1EF1FEAD00A183E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA92905C1EF1FEAD00A183E0 /* Main.storyboard */; };
 		CA9290601EF1FEAD00A183E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA92905F1EF1FEAD00A183E0 /* Assets.xcassets */; };
 		CA9290631EF1FEAD00A183E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA9290611EF1FEAD00A183E0 /* LaunchScreen.storyboard */; };
+		CAC7182C1F17146500B9C23E /* ILDirectMessagesCollectionViewFlowLayoutInvalidationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC7182B1F17146500B9C23E /* ILDirectMessagesCollectionViewFlowLayoutInvalidationContext.swift */; };
 		CADC3BBD1EF395BD00887DBF /* ILDirectMessageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC3BBC1EF395BD00887DBF /* ILDirectMessageCollectionViewCell.swift */; };
 		CADC3BBF1EF3A77500887DBF /* ILMessageMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADC3BBE1EF3A77500887DBF /* ILMessageMetadata.swift */; };
 		CADEBB0E1F0A949800BE41D8 /* ILDirectMessagesInputContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CADEBB0D1F0A949800BE41D8 /* ILDirectMessagesInputContainerView.swift */; };
@@ -46,6 +47,7 @@
 		CA92905F1EF1FEAD00A183E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA9290621EF1FEAD00A183E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CA9290641EF1FEAD00A183E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CAC7182B1F17146500B9C23E /* ILDirectMessagesCollectionViewFlowLayoutInvalidationContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILDirectMessagesCollectionViewFlowLayoutInvalidationContext.swift; sourceTree = "<group>"; };
 		CADC3BBC1EF395BD00887DBF /* ILDirectMessageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILDirectMessageCollectionViewCell.swift; sourceTree = "<group>"; };
 		CADC3BBE1EF3A77500887DBF /* ILMessageMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILMessageMetadata.swift; sourceTree = "<group>"; };
 		CADEBB0D1F0A949800BE41D8 /* ILDirectMessagesInputContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILDirectMessagesInputContainerView.swift; sourceTree = "<group>"; };
@@ -93,14 +95,15 @@
 			name = Models;
 			sourceTree = "<group>";
 		};
-		CA5D24CA1EF23534001C07B4 /* Layouts */ = {
+		CA5D24CA1EF23534001C07B4 /* Layout */ = {
 			isa = PBXGroup;
 			children = (
 				CA5D24CD1EF2356D001C07B4 /* ILDirectMessagesCollectionViewFlowLayout.swift */,
 				CA5D24CF1EF23E3A001C07B4 /* ILDirectMessagesCollectionViewLayoutAttributes.swift */,
 				CA5D24D11EF258F2001C07B4 /* ILDirectMessagesCellSizeCalculator.swift */,
+				CAC7182B1F17146500B9C23E /* ILDirectMessagesCollectionViewFlowLayoutInvalidationContext.swift */,
 			);
-			name = Layouts;
+			name = Layout;
 			sourceTree = "<group>";
 		};
 		CA92904C1EF1FEAC00A183E0 = {
@@ -123,7 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				CA2E6C581EF74ECF001DBCC5 /* Demo */,
-				CA5D24CA1EF23534001C07B4 /* Layouts */,
+				CA5D24CA1EF23534001C07B4 /* Layout */,
 				CA5D24C61EF22DDE001C07B4 /* Models */,
 				CA5D24BD1EF229EF001C07B4 /* Views */,
 				CA92906A1EF200C800A183E0 /* Controllers */,
@@ -240,6 +243,7 @@
 				CA2E6C5E1EF75398001DBCC5 /* ILDirectMessagesCollectionView.swift in Sources */,
 				CA9290591EF1FEAD00A183E0 /* AppDelegate.swift in Sources */,
 				CA59A1361F09DDE00089A2B2 /* ILDirectMessagesTextView.swift in Sources */,
+				CAC7182C1F17146500B9C23E /* ILDirectMessagesCollectionViewFlowLayoutInvalidationContext.swift in Sources */,
 				CA5D24CE1EF2356D001C07B4 /* ILDirectMessagesCollectionViewFlowLayout.swift in Sources */,
 				CA5D24C01EF22A36001C07B4 /* ILIncomingMessageCollectionViewCell.swift in Sources */,
 				CADEBB0E1F0A949800BE41D8 /* ILDirectMessagesInputContainerView.swift in Sources */,

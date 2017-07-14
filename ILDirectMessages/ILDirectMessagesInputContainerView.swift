@@ -10,6 +10,7 @@ import UIKit
 
 protocol ILDirectMessagesInputContainerDelegate: class {
     func sizeForInputContainerView(size: CGSize)
+    func sendButtonTapped(with textView: UITextView)
 }
 
 class ILDirectMessagesInputContainerView: UIView {
@@ -61,6 +62,11 @@ class ILDirectMessagesInputContainerView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.contentView.frame = self.bounds
+    }
+    
+    
+    @IBAction func sendBarButtonItemTapped(_ sender: UIBarButtonItem) {
+        self.delegate?.sendButtonTapped(with: self.textView)
     }
 }
 
