@@ -112,8 +112,29 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
 extension ViewController {
     func scrollToLastItem(animated: Bool) {
+        if self.collectionView.numberOfSections == 0 {
+            return
+        }
+        
         let lastIndexPath = IndexPath(item: self.collectionView.numberOfItems(inSection: 0) - 1, section: 0)
-        self.collectionView.scrollToItem(at:lastIndexPath, at: .bottom, animated: animated)
+        
+        if self.collectionView.numberOfSections < lastIndexPath.section {
+            return
+        }
+        
+        let contentHeight = self.collectionView.collectionViewLayout.collectionViewContentSize.height
+        if contentHeight < self.collectionView.bounds.height {
+            let visibleRect = CGRect(x: 0.0, y: contentHeight, width: 0.0, height: 0.0)
+            self.collectionView.scrollRectToVisible(visibleRect, animated: animated)
+            return
+        }
+        
+        guard let collectionViewLayout = self.collectionView.collectionViewLayout as? ILDirectMessagesCollectionViewFlowLayout else { return }
+        let cellSize = collectionViewLayout.sizeForItem(at: lastIndexPath)
+        let boundsHeight = self.collectionView.bounds.height - self.inputContainerView.frame.height
+        let position =  (cellSize.height > boundsHeight) ? UICollectionViewScrollPosition.bottom : UICollectionViewScrollPosition.top
+        
+        self.collectionView.scrollToItem(at:lastIndexPath, at: position, animated: animated)
     }
 
     func animateSending(animated: Bool) {
