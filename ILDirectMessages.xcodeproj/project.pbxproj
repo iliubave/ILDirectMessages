@@ -18,7 +18,7 @@
 		CA5D24D01EF23E3A001C07B4 /* ILDirectMessagesCollectionViewLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5D24CF1EF23E3A001C07B4 /* ILDirectMessagesCollectionViewLayoutAttributes.swift */; };
 		CA5D24D21EF258F2001C07B4 /* ILDirectMessagesCellSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5D24D11EF258F2001C07B4 /* ILDirectMessagesCellSizeCalculator.swift */; };
 		CA9290591EF1FEAD00A183E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA9290581EF1FEAD00A183E0 /* AppDelegate.swift */; };
-		CA92905B1EF1FEAD00A183E0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA92905A1EF1FEAD00A183E0 /* ViewController.swift */; };
+		CA92905B1EF1FEAD00A183E0 /* ILDirectMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA92905A1EF1FEAD00A183E0 /* ILDirectMessagesViewController.swift */; };
 		CA92905E1EF1FEAD00A183E0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA92905C1EF1FEAD00A183E0 /* Main.storyboard */; };
 		CA9290601EF1FEAD00A183E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA92905F1EF1FEAD00A183E0 /* Assets.xcassets */; };
 		CA9290631EF1FEAD00A183E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA9290611EF1FEAD00A183E0 /* LaunchScreen.storyboard */; };
@@ -42,7 +42,7 @@
 		CA5D24D11EF258F2001C07B4 /* ILDirectMessagesCellSizeCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ILDirectMessagesCellSizeCalculator.swift; sourceTree = "<group>"; };
 		CA9290551EF1FEAD00A183E0 /* ILDirectMessages.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ILDirectMessages.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA9290581EF1FEAD00A183E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CA92905A1EF1FEAD00A183E0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CA92905A1EF1FEAD00A183E0 /* ILDirectMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ILDirectMessagesViewController.swift; sourceTree = "<group>"; };
 		CA92905D1EF1FEAD00A183E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CA92905F1EF1FEAD00A183E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA9290621EF1FEAD00A183E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -142,7 +142,7 @@
 		CA92906A1EF200C800A183E0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				CA92905A1EF1FEAD00A183E0 /* ViewController.swift */,
+				CA92905A1EF1FEAD00A183E0 /* ILDirectMessagesViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -234,7 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA5D24D21EF258F2001C07B4 /* ILDirectMessagesCellSizeCalculator.swift in Sources */,
-				CA92905B1EF1FEAD00A183E0 /* ViewController.swift in Sources */,
+				CA92905B1EF1FEAD00A183E0 /* ILDirectMessagesViewController.swift in Sources */,
 				CA5D24D01EF23E3A001C07B4 /* ILDirectMessagesCollectionViewLayoutAttributes.swift in Sources */,
 				CADC3BBF1EF3A77500887DBF /* ILMessageMetadata.swift in Sources */,
 				CADC3BBD1EF395BD00887DBF /* ILDirectMessageCollectionViewCell.swift in Sources */,

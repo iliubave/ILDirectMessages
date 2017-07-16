@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ILDirectMessagesViewController.swift
 //  ILDirectMessages
 //
 //  Created by Igar Liubavetskiy on 2017-06-14.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ILDirectMessagesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var collectionView: ILDirectMessagesCollectionView!
     @IBOutlet weak var inputContainerView: ILDirectMessagesInputContainerView!
@@ -37,10 +37,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         self.collectionView.messages = self.messages
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(ViewController.keyboardWillShow(notification:)),
+                                               selector: #selector(ILDirectMessagesViewController.keyboardWillShow(notification:)),
                                                name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(ViewController.keyboardWillHide(notification:)),
+                                               selector: #selector(ILDirectMessagesViewController.keyboardWillHide(notification:)),
                                                name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
@@ -110,7 +110,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
 }
 
-extension ViewController {
+extension ILDirectMessagesViewController {
     func scrollToLastItem(animated: Bool) {
         if self.collectionView.numberOfSections == 0 {
             return
@@ -144,7 +144,7 @@ extension ViewController {
     }
 }
 
-extension ViewController {
+extension ILDirectMessagesViewController {
     func keyboardWillShow(notification: NSNotification) {
         if let keyboardFrame = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             guard let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? Double,
@@ -186,7 +186,7 @@ extension ViewController {
     }
 }
 
-extension ViewController {
+extension ILDirectMessagesViewController {
     func message(with body: String) -> ILMessage {
         let message = ILMessage()
         message.date = Date(timeIntervalSinceNow: 0)
@@ -199,18 +199,18 @@ extension ViewController {
     }
 }
 
-extension ViewController: ILDirectMessagesInputContainerDelegate {
-    func sizeForInputContainerView(size: CGSize) {
+extension ILDirectMessagesViewController: ILDirectMessagesInputContainerDelegate {
+    func didChangeSize(inputContainerView: ILDirectMessagesInputContainerView, size: CGSize) {
         self.inputContainerViewHeightConstraint.constant = size.height
+        self.scrollToLastItem(animated: false)
     }
     
-    func sendButtonTapped(with textView: UITextView) {
-        
-        if textView.text.isEmpty {
+    func didTapSendButton(inputContainerView: ILDirectMessagesInputContainerView) {
+        if inputContainerView.textView.text.isEmpty {
             return
         }
         
-        let message = self.message(with: textView.text)
+        let message = self.message(with: inputContainerView.textView.text)
         self.messages.append(message)
         self.collectionView.messages = self.messages
         

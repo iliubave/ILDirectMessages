@@ -9,8 +9,8 @@
 import UIKit
 
 protocol ILDirectMessagesInputContainerDelegate: class {
-    func sizeForInputContainerView(size: CGSize)
-    func sendButtonTapped(with textView: UITextView)
+    func didChangeSize(inputContainerView: ILDirectMessagesInputContainerView, size: CGSize)
+    func didTapSendButton(inputContainerView: ILDirectMessagesInputContainerView)
 }
 
 class ILDirectMessagesInputContainerView: UIView {
@@ -62,38 +62,41 @@ class ILDirectMessagesInputContainerView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.contentView.frame = self.bounds
+        
+        self.layoutTextView(with: self.textView.text)
     }
     
     
     @IBAction func sendBarButtonItemTapped(_ sender: UIBarButtonItem) {
-        self.delegate?.sendButtonTapped(with: self.textView)
+        self.delegate?.didTapSendButton(inputContainerView: self)
     }
 }
 
-extension ILDirectMessagesInputContainerView: UITextViewDelegate {
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        let originalText = textView.text
+extension ILDirectMessagesInputContainerView {
+    func layoutTextView(with text: String) {
+        let originalText = self.textView.text
         let inputContainerViewBounds = self.bounds
         let constraintWidth = inputContainerViewBounds.size.width - 2 * 10.0
         let constraintSize = CGSize(width: constraintWidth, height: .greatestFiniteMagnitude)
         
-        // Check the range, i.e. backspace
-        textView.text = textView.text.appending(text)
-        
-        textView.isScrollEnabled = false
-        let newTextViewSize = textView.sizeThatFits(constraintSize)
+        self.textView.isScrollEnabled = false
+        let newTextViewSize = self.textView.sizeThatFits(constraintSize)
         let adjustedTextViewContainerViewHeight = 10.0 + 15.0 + self.toolbar.bounds.size.height + 1.0 + newTextViewSize.height
         let newSize = CGSize(width: 2 * 10.0 + newTextViewSize.width, height: adjustedTextViewContainerViewHeight)
         
         // Update constraints
         self.textViewHeightConstraint.constant = newTextViewSize.height
-        self.delegate?.sizeForInputContainerView(size: newSize)
-        
+        self.delegate?.didChangeSize(inputContainerView: self, size: newSize)
+    
         // Reset the textview
-        textView.text = originalText
-        textView.setContentOffset(CGPoint.zero, animated: true)
-        textView.isScrollEnabled = true
-        
-        return true
+        self.textView.text = originalText
+        self.textView.setContentOffset(CGPoint.zero, animated: true)
+        self.textView.isScrollEnabled = true
+    }
+}
+
+extension ILDirectMessagesInputContainerView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        self.layoutTextView(with: textView.text)
     }
 }
