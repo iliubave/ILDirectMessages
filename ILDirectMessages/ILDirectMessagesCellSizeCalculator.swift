@@ -33,7 +33,9 @@ class ILDirectMessagesCellSizeCalculator: NSObject {
             let width: CGFloat = width / 1.5
             let height: CGFloat = 250.0
             
-            return CGSize(width: width, height: height)
+            let finalSize = CGSize(width: width, height: height)
+            self.cache[message.hash] = finalSize
+            return finalSize
         }
         
         let horizontalInsetsTotal = horizontalContainerInsets + horizontalFrameInsets + 30.0 + 3 * 8.0

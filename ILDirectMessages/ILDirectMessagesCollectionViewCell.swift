@@ -65,11 +65,11 @@ class ILDirectMessagesCollectionViewCell: UICollectionViewCell {
         self.bottomLabel.text = nil
         
         self.profileImageView.image = nil
-        self.backgroundImageView.image = nil
-        self.mediaMessageContainerView?.isHidden = false
+        self.backgroundImageView?.image = nil
+        self.mediaMessageContainerView?.isHidden = true
         
         self.textView.text = nil
-        self.textView?.isHidden = false
+        self.textView?.isHidden = true
     }
     
     func configure(message: ILMessage) {
