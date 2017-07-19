@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ILIncomingMessageCollectionViewCell: ILDirectMessageCollectionViewCell {
+class ILIncomingMessageCollectionViewCell: ILDirectMessagesCollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()

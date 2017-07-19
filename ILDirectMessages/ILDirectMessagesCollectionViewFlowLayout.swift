@@ -276,8 +276,8 @@ extension ILDirectMessagesCollectionViewFlowLayout {
     func messageContainerSizeForItem(at indexPath: IndexPath) -> CGSize {
         guard let collectionView = self.collectionView as? ILDirectMessagesCollectionView  else { return CGSize.zero }
         
-        let messageMetadata = collectionView.message(at: indexPath)
-        return self.cellSizeCalculator.cellContainerSizeForItem(at: indexPath, messageMetadata: messageMetadata, layout: self)
+        let message = collectionView.message(at: indexPath)
+        return self.cellSizeCalculator.cellContainerSizeForItem(at: indexPath, message: message, layout: self)
     }
     
     func sizeForItem(at indexPath: IndexPath) -> CGSize {

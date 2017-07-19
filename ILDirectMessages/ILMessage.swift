@@ -8,15 +8,14 @@
 
 import UIKit
 
-class ILMessage: NSObject, ILMessageMetadata {
+class ILMessage: NSObject {
     var senderName: String!
     var date: Date!
-    var body: String!
-    var isMediaMessage: Bool = false
+    var body: String?
     var isIncoming: Bool!
     override var hash: Int  {
         get {
-            return self.senderName.hashValue ^ self.body.hashValue
+            return self.senderName.hashValue ^ self.date.hashValue 
         }
     }
     

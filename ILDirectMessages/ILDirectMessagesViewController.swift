@@ -62,7 +62,7 @@ class ILDirectMessagesViewController: UIViewController, UICollectionViewDataSour
             message.date = Date(timeIntervalSinceNow: 0)
             
             if i % 2 == 0 {
-                message.isIncoming = true
+                message.isIncoming = false
                 message.senderName = "Tim Cook"
                 message.body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
             } else if i % 3 == 0 {
@@ -70,11 +70,14 @@ class ILDirectMessagesViewController: UIViewController, UICollectionViewDataSour
                 message.senderName = "Tim Cook"
                 message.body = "Why do we use it?"
             } else {
-                message.isIncoming = false
+                let message = ILMediaMessage()
+                message.date = Date(timeIntervalSinceNow: 0)
+                message.isIncoming = true
                 message.senderName = "Steve Jobs"
-                message.body = "It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
+                message.url = "https://cdn.vox-cdn.com/uploads/chorus_image/image/55102943/692626382.0.jpg"
+                messages.append(message)
+                continue
             }
-            message.isMediaMessage = false
             
             messages.append(message)
         }
@@ -92,7 +95,7 @@ class ILDirectMessagesViewController: UIViewController, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let message = self.messages[indexPath.item]
-        var cell: ILDirectMessageCollectionViewCell!
+        var cell: ILDirectMessagesCollectionViewCell!
         
         if !message.isIncoming {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ILOutgoingMessageCollectionViewCell", for: indexPath) as! ILOutgoingMessageCollectionViewCell
@@ -100,7 +103,7 @@ class ILDirectMessagesViewController: UIViewController, UICollectionViewDataSour
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ILIncomingMessageCollectionViewCell", for: indexPath) as! ILIncomingMessageCollectionViewCell
         }
         
-        cell.configure(text: message.body)
+        cell.configure(message: message)
         return cell!
     }
     
@@ -137,14 +140,20 @@ extension ILDirectMessagesViewController {
         self.collectionView.scrollToItem(at:lastIndexPath, at: position, animated: animated)
     }
 
-    func animateSending(animated: Bool) {
-        self.inputContainerView.textView.text = nil
+    func animateSending(animated: Bool, inputContainerView: ILDirectMessagesInputContainerView) {
+        // Reset the textview
+        guard let textView = inputContainerView.textView else { return }
+        textView.text = nil
+        inputContainerView.layoutTextView(with: textView.text)
+        
+        // Update the layout
         self.collectionView.reloadData()
         self.scrollToLastItem(animated: animated)
     }
 }
 
 extension ILDirectMessagesViewController {
+    
     func keyboardWillShow(notification: NSNotification) {
         if let keyboardFrame = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             guard let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? Double,
@@ -157,12 +166,12 @@ extension ILDirectMessagesViewController {
                 
                 self.collectionView.setContentOffset(CGPoint(x: 0.0, y: self.collectionView.contentOffset.y + insets.bottom), animated: true)
                 self.inputContainerViewBottomConstraint.constant = insets.bottom
-                self.view.layoutIfNeeded()
             }, completion: { (success) in
-                
+                self.view.layoutIfNeeded()
             })
         }
     }
+    
     func keyboardWillHide(notification: NSNotification) {
         if let keyboardFrame = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             guard let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? Double,
@@ -178,9 +187,8 @@ extension ILDirectMessagesViewController {
                 self.collectionView.contentInset = UIEdgeInsets.zero
                 self.collectionView.scrollIndicatorInsets = UIEdgeInsets.zero
                 self.inputContainerViewBottomConstraint.constant = 0.0
-                self.view.layoutIfNeeded()
             }, completion: { (success) in
-                
+                self.view.layoutIfNeeded()
             })
         }
     }
@@ -193,7 +201,6 @@ extension ILDirectMessagesViewController {
         message.isIncoming = true
         message.senderName = "Me"
         message.body = body
-        message.isMediaMessage = false
     
         return message
     }
@@ -214,7 +221,7 @@ extension ILDirectMessagesViewController: ILDirectMessagesInputContainerDelegate
         self.messages.append(message)
         self.collectionView.messages = self.messages
         
-        self.animateSending(animated: true)
+        self.animateSending(animated: true, inputContainerView: inputContainerView)
     }
 }
 

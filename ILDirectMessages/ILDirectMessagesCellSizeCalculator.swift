@@ -14,8 +14,8 @@ class ILDirectMessagesCellSizeCalculator: NSObject {
     var minimumItemWidth: Float!
     var cache: [Int: CGSize] = [:]
 
-    func cellContainerSizeForItem(at indexPath: IndexPath, messageMetadata: ILMessageMetadata, layout: ILDirectMessagesCollectionViewFlowLayout) -> CGSize {
-        if let cachedSize = self.cache[messageMetadata.hash] {
+    func cellContainerSizeForItem(at indexPath: IndexPath, message: ILMessage, layout: ILDirectMessagesCollectionViewFlowLayout) -> CGSize {
+        if let cachedSize = self.cache[message.hash] {
             return cachedSize
         }
         
@@ -27,10 +27,19 @@ class ILDirectMessagesCellSizeCalculator: NSObject {
         let height = layout.collectionView!.bounds.height - horizontalInsets
         let layoutWidthForFixedWidthBubbles = min(width, height)
         
+        
+        // Check the message type
+        if message is ILMediaMessage {
+            let width: CGFloat = width / 1.5
+            let height: CGFloat = 250.0
+            
+            return CGSize(width: width, height: height)
+        }
+        
         let horizontalInsetsTotal = horizontalContainerInsets + horizontalFrameInsets + 30.0 + 3 * 8.0
         let maximumTextWidth = layoutWidthForFixedWidthBubbles - horizontalInsetsTotal
         
-        let textViewSize = self.boundingRect(for: messageMetadata.body, withConstrainedWidth: maximumTextWidth, font: layout.messageFont, textViewFrameInsets: layout.messageTextViewFrameInsets)
+        let textViewSize = self.boundingRect(for: message.body, withConstrainedWidth: maximumTextWidth, font: layout.messageFont, textViewFrameInsets: layout.messageTextViewFrameInsets)
         
         let verticalContainerInsets = layout.messageTextViewTextContainerInsets.top + layout.messageTextViewTextContainerInsets.bottom
         let verticalFrameInsets = layout.messageTextViewFrameInsets.top + layout.messageTextViewFrameInsets.bottom + layout.topLabelHeight + layout.bottomLabelHeight
@@ -41,14 +50,15 @@ class ILDirectMessagesCellSizeCalculator: NSObject {
         let finalHeight = max(textViewSize.height + verticalInsets, 30.0) + 2.0
         
         let finalSize = CGSize(width: finalWidth, height: finalHeight)
-        self.cache[messageMetadata.hash] = finalSize
+        self.cache[message.hash] = finalSize
         
         return finalSize
     }
 }
 
 extension ILDirectMessagesCellSizeCalculator {
-    func boundingRect(for text: String, withConstrainedWidth width: CGFloat, font: UIFont, textViewFrameInsets: UIEdgeInsets) -> CGSize {
+    func boundingRect(for text: String?, withConstrainedWidth width: CGFloat, font: UIFont, textViewFrameInsets: UIEdgeInsets) -> CGSize {
+        guard let text = text else { return .zero }
         let constraintSize = CGSize(width: width, height: .greatestFiniteMagnitude)
         
         // Dummy textview

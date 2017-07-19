@@ -1,5 +1,5 @@
 //
-//  ILDirectMessageCollectionViewCell.swift
+//  ILDirectMessagesCollectionViewCell.swift
 //  ILDirectMessages
 //
 //  Created by Igar Liubavetskiy on 2017-06-16.
@@ -8,15 +8,16 @@
 
 import UIKit
 
-class ILDirectMessageCollectionViewCell: UICollectionViewCell {
+class ILDirectMessagesCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var bottomLabel: UILabel!
     
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var messageContainerView: UIView!
+    @IBOutlet weak var mediaMessageContainerView: UIView!
     
-    @IBOutlet weak var messageBubbleBackgroundImageView: UIImageView!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var textView: UITextView!
     
     @IBOutlet weak var messageContainerWidthConstraint: NSLayoutConstraint!
@@ -64,14 +65,24 @@ class ILDirectMessageCollectionViewCell: UICollectionViewCell {
         self.bottomLabel.text = nil
         
         self.profileImageView.image = nil
-        
-        self.messageBubbleBackgroundImageView.image = nil
+        self.backgroundImageView.image = nil
+        self.mediaMessageContainerView?.isHidden = false
         
         self.textView.text = nil
+        self.textView?.isHidden = false
     }
     
-    func configure(text: String) {
-        self.textView.text = text
+    func configure(message: ILMessage) {
+        if let body = message.body {
+            self.textView.text = body
+            self.textView.isHidden = false
+        }
+        
+        if message is ILMediaMessage {
+            // set the dummy image for now to figure out sizing related to the aspect ratio
+            self.backgroundImageView.image = UIImage(named: "sample-media-message-photo")
+            self.mediaMessageContainerView.isHidden = false
+        }
     }
     
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
