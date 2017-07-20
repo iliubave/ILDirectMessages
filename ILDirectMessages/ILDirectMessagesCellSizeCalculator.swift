@@ -29,11 +29,24 @@ class ILDirectMessagesCellSizeCalculator: NSObject {
         
         
         // Check the message type
-        if message is ILMediaMessage {
-            let width: CGFloat = width / 1.5
-            let height: CGFloat = 250.0
+        if let message = message as? ILMediaMessage {
+            var finalWidth: CGFloat = 0.0
+            var finalHeight: CGFloat = 0.0
             
-            let finalSize = CGSize(width: width, height: height)
+            guard let image = message.image else { return CGSize.zero }
+            let aspectRatio = image.size.width / image.size.height
+            
+            // Landscape format
+            if image.size.width > image.size.height {
+                finalWidth = width / 1.5
+                finalHeight = finalWidth / aspectRatio
+            } else {
+                // Portrait format
+                finalWidth = width / 1.5
+                finalHeight = finalWidth / aspectRatio
+            }
+            
+            let finalSize = CGSize(width: finalWidth, height: finalHeight)
             self.cache[message.hash] = finalSize
             return finalSize
         }

@@ -78,9 +78,9 @@ class ILDirectMessagesCollectionViewCell: UICollectionViewCell {
             self.textView.isHidden = false
         }
         
-        if message is ILMediaMessage {
+        if let message = message as? ILMediaMessage {
             // set the dummy image for now to figure out sizing related to the aspect ratio
-            self.backgroundImageView.image = UIImage(named: "sample-media-message-photo")
+            self.backgroundImageView.image = message.image
             self.mediaMessageContainerView.isHidden = false
         }
     }

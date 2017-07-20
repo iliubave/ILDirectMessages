@@ -15,13 +15,13 @@ class ILMessage: NSObject {
     var isIncoming: Bool!
     override var hash: Int  {
         get {
-            var hashValue = self.senderName.hashValue ^ self.date.hashValue
+            var hash = self.senderName.hashValue ^ self.date.hashValue
             
             if let body = body {
-                hashValue ^= body.hashValue
+                hash ^= body.hashValue
             }
             
-            return hashValue
+            return hash
         }
     }
     

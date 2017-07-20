@@ -10,6 +10,12 @@ import UIKit
 
 class ILMediaMessage: ILMessage {
     var url: String!
-    var placeholderImageView: UIImageView!
+    var image: UIImage!
     var isAudioMessage: Bool = false
+    
+    override var hash: Int  {
+        get {
+            return super.hash ^ self.url.hashValue ^ self.image.hashValue
+        }
+    }
 }

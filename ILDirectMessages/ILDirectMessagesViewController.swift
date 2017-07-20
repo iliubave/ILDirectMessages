@@ -65,18 +65,51 @@ class ILDirectMessagesViewController: UIViewController, UICollectionViewDataSour
                 message.isIncoming = false
                 message.senderName = "Tim Cook"
                 message.body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-            } else if i % 3 == 0 {
+            } else {
                 message.isIncoming = true
                 message.senderName = "Tim Cook"
                 message.body = "Why do we use it?"
+            }
+            
+            messages.append(message)
+        }
+        
+        let mediaMessage1 = ILMediaMessage()
+        mediaMessage1.date = Date(timeIntervalSinceNow: 0)
+        mediaMessage1.isIncoming = true
+        mediaMessage1.senderName = "Steve Jobs"
+        mediaMessage1.url = "https://cdn.vox-cdn.com/uploads/chorus_image/image/55102943/692626382.0.jpg"
+        mediaMessage1.image = UIImage(named: "sample-media-message-photo")
+        messages.append(mediaMessage1)
+        
+        let mediaMessage2 = ILMediaMessage()
+        mediaMessage2.date = Date(timeIntervalSinceNow: 0)
+        mediaMessage2.isIncoming = true
+        mediaMessage2.senderName = "Steve Jobs"
+        mediaMessage2.url = "https://cdn.vox-cdn.com/uploads/chorus_image/image/55102943/692626382.0.jpg"
+        mediaMessage2.image = UIImage(named: "sample-media-message-photo-2")
+        messages.append(mediaMessage2)
+        
+        let mediaMessage3 = ILMediaMessage()
+        mediaMessage3.date = Date(timeIntervalSinceNow: 0)
+        mediaMessage3.isIncoming = true
+        mediaMessage3.senderName = "Steve Jobs"
+        mediaMessage3.url = "https://cdn.vox-cdn.com/uploads/chorus_image/image/55102943/692626382.0.jpg"
+        mediaMessage3.image = UIImage(named: "sample-media-message-photo-3")
+        messages.append(mediaMessage3)
+        
+        for i in 0...3 {
+            let message = ILMessage()
+            message.date = Date(timeIntervalSinceNow: 0)
+            
+            if i % 2 == 0 {
+                message.isIncoming = false
+                message.senderName = "Tim Cook"
+                message.body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
             } else {
-                let message = ILMediaMessage()
-                message.date = Date(timeIntervalSinceNow: 0)
                 message.isIncoming = true
-                message.senderName = "Steve Jobs"
-                message.url = "https://cdn.vox-cdn.com/uploads/chorus_image/image/55102943/692626382.0.jpg"
-                messages.append(message)
-                continue
+                message.senderName = "Tim Cook"
+                message.body = "Why do we use it?"
             }
             
             messages.append(message)
@@ -164,7 +197,7 @@ extension ILDirectMessagesViewController {
                 
                 let insets = UIEdgeInsets(top: self.topLayoutGuide.length + keyboardFrame.size.height, left: 0.0, bottom: bottom + keyboardFrame.size.height, right: 0.0)
                 
-                self.collectionView.setContentOffset(CGPoint(x: 0.0, y: self.collectionView.contentOffset.y + insets.bottom), animated: true)
+                self.collectionView.setContentOffset(CGPoint(x: 0.0, y: self.collectionView.contentOffset.y + insets.bottom), animated: false)
                 self.inputContainerViewBottomConstraint.constant = insets.bottom
             }, completion: { (success) in
                 self.view.layoutIfNeeded()
@@ -182,7 +215,7 @@ extension ILDirectMessagesViewController {
 
                 let insets = UIEdgeInsets(top: self.topLayoutGuide.length + keyboardFrame.size.height, left: 0.0, bottom: bottom - keyboardFrame.size.height, right: 0.0)
                 
-                self.collectionView.setContentOffset(CGPoint(x: 0.0, y: self.collectionView.contentOffset.y + insets.bottom), animated: true)
+                self.collectionView.setContentOffset(CGPoint(x: 0.0, y: self.collectionView.contentOffset.y + insets.bottom), animated: false)
                 
                 self.collectionView.contentInset = UIEdgeInsets.zero
                 self.collectionView.scrollIndicatorInsets = UIEdgeInsets.zero
