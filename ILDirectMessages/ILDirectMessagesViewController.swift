@@ -11,13 +11,11 @@ import UIKit
 class ILDirectMessagesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var collectionView: ILDirectMessagesCollectionView!
-    @IBOutlet weak var inputContainerView: ILDirectMessagesInputContainerView!
+    @IBOutlet weak var inputContainerView: UIView!
+    var inputToolBarContainerView: ILDirectMessagesInputContainerView!
     
     @IBOutlet weak var inputContainerViewHeightConstraint: NSLayoutConstraint!
     var messages: [ILMessage] = []
-
-    @IBOutlet weak var inputContainerHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var inputContainerViewBottomConstraint: NSLayoutConstraint!
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -31,10 +29,11 @@ class ILDirectMessagesViewController: UIViewController, UICollectionViewDataSour
         let nib2 = UINib(nibName: "ILOutgoingMessageCollectionViewCell", bundle: nil)
         self.collectionView.register(nib2, forCellWithReuseIdentifier: "ILOutgoingMessageCollectionViewCell")
         
-        self.inputContainerView.delegate = self
-        
         self.messages = self.prepareDemoMessages()
         self.collectionView.messages = self.messages
+        
+        self.inputToolBarContainerView = ILDirectMessagesInputContainerView(frame: self.inputContainerView.frame)
+        self.inputToolBarContainerView.delegate = self
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(ILDirectMessagesViewController.keyboardWillShow(notification:)),
@@ -187,6 +186,14 @@ extension ILDirectMessagesViewController {
 
 extension ILDirectMessagesViewController {
     
+    override var inputAccessoryView: UIView? {
+        return self.inputToolBarContainerView
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
     func keyboardWillShow(notification: NSNotification) {
         if let keyboardFrame = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             guard let duration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? Double,
@@ -198,9 +205,7 @@ extension ILDirectMessagesViewController {
                 let insets = UIEdgeInsets(top: self.topLayoutGuide.length + keyboardFrame.size.height, left: 0.0, bottom: bottom + keyboardFrame.size.height, right: 0.0)
                 
                 self.collectionView.setContentOffset(CGPoint(x: 0.0, y: self.collectionView.contentOffset.y + insets.bottom), animated: false)
-                self.inputContainerViewBottomConstraint.constant = insets.bottom
             }, completion: { (success) in
-                self.view.layoutIfNeeded()
             })
         }
     }
@@ -219,9 +224,8 @@ extension ILDirectMessagesViewController {
                 
                 self.collectionView.contentInset = UIEdgeInsets.zero
                 self.collectionView.scrollIndicatorInsets = UIEdgeInsets.zero
-                self.inputContainerViewBottomConstraint.constant = 0.0
             }, completion: { (success) in
-                self.view.layoutIfNeeded()
+                
             })
         }
     }
@@ -241,7 +245,11 @@ extension ILDirectMessagesViewController {
 
 extension ILDirectMessagesViewController: ILDirectMessagesInputContainerDelegate {
     func didChangeSize(inputContainerView: ILDirectMessagesInputContainerView, size: CGSize) {
+        // TODO: remove inputContainerViewHeightConstraint
+        // add an explicit height constraint in inputToolBarContainerView
         self.inputContainerViewHeightConstraint.constant = size.height
+        self.inputToolBarContainerView.translatesAutoresizingMaskIntoConstraints = true
+        self.inputToolBarContainerView.frame.size = CGSize(width: self.inputToolBarContainerView.frame.size.width, height: size.height)
         self.scrollToLastItem(animated: false)
     }
     

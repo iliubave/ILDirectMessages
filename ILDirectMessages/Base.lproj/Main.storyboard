@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdr-6Z-ZJu" customClass="ILDirectMessagesCollectionView" customModule="ILDirectMessages" customModuleProvider="target">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="interactive" dataMode="prototypes" prefetchingEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rdr-6Z-ZJu" customClass="ILDirectMessagesCollectionView" customModule="ILDirectMessages" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="557"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewLayout key="collectionViewLayout" id="O6k-W0-mki" customClass="ILDirectMessagesCollectionViewFlowLayout" customModule="ILDirectMessages" customModuleProvider="target"/>
@@ -31,7 +31,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="ixb-lY-ziS"/>
                                 </connections>
                             </collectionView>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qrB-9m-f4n" customClass="ILDirectMessagesInputContainerView" customModule="ILDirectMessages" customModuleProvider="target">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qrB-9m-f4n">
                                 <rect key="frame" x="0.0" y="577" width="375" height="90"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -53,8 +53,7 @@
                     <navigationItem key="navigationItem" id="fVP-WD-kbg"/>
                     <connections>
                         <outlet property="collectionView" destination="Rdr-6Z-ZJu" id="pLT-aa-xqo"/>
-                        <outlet property="inputContainerView" destination="qrB-9m-f4n" id="AHm-9V-T3K"/>
-                        <outlet property="inputContainerViewBottomConstraint" destination="dSe-f9-SP9" id="opd-PO-RlS"/>
+                        <outlet property="inputContainerView" destination="qrB-9m-f4n" id="Tr2-VX-iNg"/>
                         <outlet property="inputContainerViewHeightConstraint" destination="ivo-QJ-gcA" id="uef-6J-1of"/>
                     </connections>
                 </viewController>
